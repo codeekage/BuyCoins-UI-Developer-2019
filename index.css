@@ -1,0 +1,100 @@
+/* Some starer styling. Feel free to change anything you like */
+
+html{
+    font-size: 62.5%; /*This defines what 1rem should be. It sets the value of 1rem to 10px..*/
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    background-color: #dcdcdc;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+}
+
+main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+    width:60rem;
+    box-shadow: 0px 0.3rem .8rem black;
+}
+
+table{
+    text-align: left;
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+#coins-data tr:nth-child(odd){
+    background-color: #dcdcdc;
+}
+
+#coins-data td, thead th, #navigation {
+    padding: 1rem;
+}
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    background-color: #dcdcdc;
+} 
+
+#navigation button{
+    font-weight: bold;
+    padding: 3px;
+    cursor: default;
+    border:none;
+    background-color: inherit;
+    font-size: inherit;
+}
+
+#navigation button:focus, #navigation button:hover{
+    outline: 1px solid goldenrod;
+}
+
+#prev{
+    visibility: hidden;
+}
+
+
+@media screen and (max-width: 600px){
+    main{
+        top: 0;
+        left: 50%;
+        transform:translateX(-50%);
+        width: 90vw;
+        margin: auto 0;
+    }
+    td {
+        display: block;
+        float: left;
+    }
+    thead th {
+        display: none;
+    }
+    td::before {
+        display: block;
+        font-weight: bold;
+    }
+    td:nth-child(1):before {
+        content: "💰 Coin";
+    }
+    td:nth-child(2):before {
+        content: "📄 Code";
+    }
+    td:nth-child(3):before {
+        content: "🤑 Price";
+    }
+    td:nth-child(4):before {
+        content: "📉 Total Supply";
+    }
+    td {
+        width: 40%;
+    }
+    
+    
+}
