@@ -18,7 +18,7 @@ fetch('https://api.coinlore.com/api/tickers/')
        let arrLength = coins.data.length
        console.log(arrLength);
        let array = coins.data;
-       coinsData = array.slice(0,10);
+       let coinsData = array.slice(0,10);
        getCoins();
 
        function nextCoins(){
