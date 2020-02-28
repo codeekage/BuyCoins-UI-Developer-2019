@@ -18,37 +18,31 @@ class Actions {
     constructor(coinsPerPage){
         this.coinsPerPage = coinsPerPage;
     }
+
     
-    async fetchCoins() {
-        try{
-            const response = await axios('https://api.coinlore.com/api/tickers/');
-            this.array = response.data.data
-           return this.array;
-        }
-        catch(error){
-           console.log(error)
-        }
-    }
     
+
+
     nextCoins(){
-        this.count++
-        console.log(this.coinsPerPage, this.array, this.count);
-        return this.array.slice(this.count, this.count + this.coinsPerPage);
+        this.count = this.count  + this.coinsPerPage;
+        this.count = this.count % this.array;
+        return this.array.slice(this.count, this.count +this.coinsPerPage);
     }
 
     prevCoins(){
-        this.count--
-        return this.array.slice(this.count, this.count + this.coinsPerPage);
+        let i = 0;
+        i = i - this.coinsPerPage;
+        return this.array.slice(i, i+this.coinsPerPage);
     }
 
     displayButtons(){
-         prevButton.style.visible ? this.count > 0 : "visible";
-         nextButton.className = "visible";
-         console.log('button display')
+         prevButton.style.visibility = this.count > 0 ?  "visible" : "hidden";
+         nextButton.style.visibility = this.count >= 90 ?  "hidden" : "visible";
     }
     
     getCoins(coins){
         for(let coin of coins){
+            console.log(coin)
              let tableRow = `<tr>
                          <td>${coin.name}</td>
                          <td>${coin.symbol}</td>
@@ -61,25 +55,27 @@ class Actions {
 
     displayNewCoins(button){
         let coins;
+        console.log(this.nextCoins())
         tbody.innerHTML = " ";
         button === 'next' ? coins = this.nextCoins() : coins = this.prevCoins();
-        this.getCoins(coins);
+        //this.getCoins(this.array);
+        this.displayButtons()
     }
     
     init(coins, direction){
-        let coinsData = coins.slice(0, 10);
-        this.getCoins(coinsData);
         this.displayNewCoins(direction);
+        let coinsData = coins.slice(0,10);
+        this.getCoins(coinsData);
     }
 }
 
 
-const actions = new Actions(10);
  const newAction = async (direction) => {
+    const actions = new Actions(10);
     try{
       const coinData = await actions.fetchCoins();
       actions.init(coinData, direction)
-      //actions.displayButtons()
+      actions.displayButtons()
     }catch(error){
        console.log(error);
     }
@@ -105,16 +101,16 @@ newAction('next')
     }catch(error){
         console.log(error);
     }
-} */
-
+}
+ */
 
  
 nextButton.addEventListener('click', () => {
-newAction('next');
+    newAction('next');
 });
 
 prevButton.addEventListener('click', () => {
- newAction('prev');
+    newAction('prev');
 } );
 
  
